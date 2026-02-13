@@ -90,17 +90,26 @@ jobs:
       - name: Get version info
         id: version
         run: |
-          if [ -f data/updates.json ]; then
-            VERSION=$(python -c "import json; data=json.load(open('data/updates.json')); print(data[0]['version'] if data else 'manual')")
-            echo "version=$VERSION" >> $GITHUB_OUTPUT
+          # 获取最新的release标签
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+
+          if [ -n "$LATEST_TAG" ]; then
+            # 从标签中提取版本号（假设格式为 v0.1.0）
+            BASE_VERSION=$(echo "$LATEST_TAG" | sed 's/^v//')
+            MAJOR=$(echo "$BASE_VERSION" | cut -d. -f1)
+            MINOR=$(echo "$BASE_VERSION" | cut -d. -f2)
+            PATCH=$(echo "$BASE_VERSION" | cut -d. -f3)
+            NEW_PATCH=$((PATCH + 1))
+            VERSION="v${MAJOR}.${MINOR}.${NEW_PATCH}"
           else
-            echo "version=manual-$(date +%Y%m%d)" >> $GITHUB_OUTPUT
+            # 没有标签，从0.1.0开始
+            VERSION="v0.1.0"
           fi
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: fonts-${{ steps.version.outputs.version }}
+          tag_name: ${{ steps.version.outputs.version }}
           name: Fonts Release ${{ steps.version.outputs.version }}
           body: |
             ## 字体更新
