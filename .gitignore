@@ -47,6 +47,3 @@ data/updates.json
 
 # Downloaded fonts (original files)
 downloads/
-
-# Subsetted fonts
-fonts/
