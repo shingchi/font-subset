@@ -1,4 +1,12 @@
 {
   "comment": "此文件记录已处理的字体版本",
-  "fonts": {}
+  "fonts": {},
+  "LxgwWenkaiGB": {
+    "version": "v1.521",
+    "updated_at": ""
+  },
+  "SourceHanSerif": {
+    "version": "2.003R",
+    "updated_at": ""
+  }
 }
