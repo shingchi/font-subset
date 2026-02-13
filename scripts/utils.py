@@ -192,7 +192,7 @@ def generate_css(font_name: str, variant: str, weight: int,
 }}"""
         css_parts.append(css)
 
-        css_min = f"""@font-face{{font-family:'{font_name}';font-style:normal;font-weight:{weight};font-display:swap;src:url({filename}) format('woff2');unicode-range:{unicode_range}}}"""
+        css_min = f"""@font-face{{font-family:'{font_name}';font-style:normal;font-weight:{weight};font-display:swap;src:url({filename}) format('woff2');unicode-range:{unicode_range.replace(' ', '')}}}"""
         css_min_parts.append(css_min)
 
     return ('\n'.join(css_parts), ''.join(css_min_parts))
