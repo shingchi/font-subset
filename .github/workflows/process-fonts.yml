@@ -100,11 +100,13 @@ jobs:
             MINOR=$(echo "$BASE_VERSION" | cut -d. -f2)
             PATCH=$(echo "$BASE_VERSION" | cut -d. -f3)
             NEW_PATCH=$((PATCH + 1))
-            VERSION="v${MAJOR}.${MINOR}.${NEW_PATCH}"
+            VERSION="${MAJOR}.${MINOR}.${NEW_PATCH}"
           else
             # 没有标签，从0.1.0开始
-            VERSION="v0.1.0"
+            VERSION="0.1.0"
           fi
+
+          echo "version=v$VERSION" >> $GITHUB_OUTPUT
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
