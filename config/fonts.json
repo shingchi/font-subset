@@ -1,0 +1,36 @@
+{
+  "fonts": [
+    {
+      "name": "LxgwWenkaiGB",
+      "repo": "lxgw/LxgwWenkaiGB",
+      "description": "霞鹜文楷 GB",
+      "files": [
+        {
+          "asset_pattern": "LXGWWenKaiGB-Regular.ttf",
+          "font_pattern": null,
+          "variant": "Regular",
+          "weight": 400
+        }
+      ]
+    },
+    {
+      "name": "SourceHanSerif",
+      "repo": "adobe-fonts/source-han-serif",
+      "description": "思源宋体",
+      "files": [
+        {
+          "asset_pattern": ".*SourceHanSerifSC.*\\.zip",
+          "font_pattern": "SourceHanSerifSC-Regular.otf",
+          "variant": "Regular",
+          "weight": 400
+        },
+        {
+          "asset_pattern": ".*SourceHanSerifSC.*\\.zip",
+          "font_pattern": "SourceHanSerifSC-Bold.otf",
+          "variant": "Bold",
+          "weight": 700
+        }
+      ]
+    }
+  ]
+}

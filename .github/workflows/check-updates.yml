@@ -1,0 +1,56 @@
+name: Check Font Updates
+
+on:
+  schedule:
+    # 每天 UTC 时间 0:00 运行（北京时间 8:00）
+    - cron: '0 0 * * *'
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  check-updates:
+    runs-on: ubuntu-latest
+
+    outputs:
+      has_updates: ${{ steps.check.outputs.has_updates }}
+      update_count: ${{ steps.check.outputs.update_count }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Check for updates
+        id: check
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python scripts/check_updates.py \
+            --config config/fonts.json \
+            --versions data/versions.json \
+            --output data/updates.json
+
+      - name: Upload update info
+        if: steps.check.outputs.has_updates == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: update-info
+          path: data/updates.json
+          retention-days: 1
+
+      - name: Trigger font processing
+        if: steps.check.outputs.has_updates == 'true'
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          event-type: process-fonts
+          client-payload: '{"update_count": "${{ steps.check.outputs.update_count }}"}'
