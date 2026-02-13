@@ -1,10 +1,10 @@
 # Font Subset
 
 <p align="center">
-  <img src="https://img.shields.io/github/actions/workflow/status/YOUR_USERNAME/font-subsetter-cdn/check-updates.yml?label=Check%20Updates&style=flat-square" alt="Check Updates">
-  <img src="https://img.shields.io/github/actions/workflow/status/YOUR_USERNAME/font-subsetter-cdn/process-fonts.yml?label=Process%20Fonts&style=flat-square" alt="Process Fonts">
-  <img src="https://img.shields.io/github/license/YOUR_USERNAME/font-subsetter-cdn?style=flat-square" alt="License">
-  <img src="https://img.shields.io/github/repo-size/YOUR_USERNAME/font-subsetter-cdn?style=flat-square" alt="Repo Size">
+  <img src="https://img.shields.io/github/actions/workflow/status/shingchi/font-subset/check-updates.yml?label=Check%20Updates&style=flat-square" alt="Check Updates">
+  <img src="https://img.shields.io/github/actions/workflow/status/shingchi/font-subset/process-fonts.yml?label=Process%20Fonts&style=flat-square" alt="Process Fonts">
+  <img src="https://img.shields.io/github/license/shingchi/font-subset?style=flat-square" alt="License">
+  <img src="https://img.shields.io/github/repo-size/shingchi/font-subset?style=flat-square" alt="Repo Size">
 </p>
 
 自动跟踪中文字体更新，按照 Google Noto Serif SC 切片范围进行子集化处理，并通过 jsDelivr CDN 提供服务。
