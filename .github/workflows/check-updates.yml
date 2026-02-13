@@ -9,7 +9,7 @@ on:
 jobs:
   check-updates:
     runs-on: ubuntu-latest
-    # 在job级别添加权限
+    # 在job级别添加权限，不然Trigger font processing会失败
     permissions:
       contents: write
 

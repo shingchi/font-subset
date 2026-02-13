@@ -8,6 +8,9 @@ on:
 jobs:
   process-fonts:
     runs-on: ubuntu-latest
+    # 在job级别添加权限，允许写入内容（推送代码）
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository
