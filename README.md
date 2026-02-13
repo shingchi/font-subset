@@ -1,4 +1,4 @@
-# Font Subsetter CDN
+# Font Subset
 
 <p align="center">
   <img src="https://img.shields.io/github/actions/workflow/status/YOUR_USERNAME/font-subsetter-cdn/check-updates.yml?label=Check%20Updates&style=flat-square" alt="Check Updates">
@@ -18,13 +18,6 @@
 - 📦 生成 woff2 格式的子集字体
 - 🚀 自动发布到 GitHub Releases，支持 jsDelivr CDN 加速
 - 🎨 支持多个主流中文字体
-
-## 支持的字体
-
-- [霞鹜文楷 GB (LxgwWenkaiGB)](https://github.com/lxgw/LxgwWenkaiGB)
-- [霞鹜新致宋 (LxgwNeoZhiSong)](https://github.com/lxgw/LxgwNeoZhiSong)
-- [思源宋体 (Source Han Serif)](https://github.com/adobe-fonts/source-han-serif)
-- [思源黑体 (Source Han Sans)](https://github.com/adobe-fonts/source-han-sans)
 
 ## 快速开始
 
@@ -90,7 +83,7 @@ python scripts/process_fonts.py
 ## 项目结构
 
 ```
-font-subsetter-cdn/
+font-subset/
 ├── .github/
 │   └── workflows/
 │       ├── check-updates.yml      # 检查更新工作流
@@ -130,26 +123,6 @@ font-subsetter-cdn/
 
 定义字体切片的 unicode 范围（基于 Google Noto Serif SC）。
 
-## GitHub Actions 配置
-
-需要在仓库中配置以下 Secrets：
-
-- `GITHUB_TOKEN`：自动创建，用于发布 Releases
-
 ## 许可证
 
 MIT License
-
-## 相关链接
-
-- 📖 [详细设置指南](docs/SETUP.md)
-- 🔧 [依赖说明](docs/DEPENDENCIES.md)
-- 🤝 [贡献指南](CONTRIBUTING.md)
-- 🎨 [使用示例](examples/demo.html)
-- 🐛 [问题反馈](https://github.com/YOUR_USERNAME/font-subsetter-cdn/issues)
-
-## 致谢
-
-- 字体提供：霞鹜、Adobe
-- 切片方案：Google Fonts (Noto Serif SC)
-- 工具：fonttools, brotli
