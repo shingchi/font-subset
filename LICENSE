@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2026 Font Subsetter CDN
+Copyright (c) 2026 Font Subset
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -22,10 +22,5 @@ SOFTWARE.
 
 ---
 
-Note: The fonts processed by this project are subject to their own licenses:
-- LxgwWenkaiGB: SIL Open Font License 1.1
-- LxgwNeoZhiSong: SIL Open Font License 1.1
-- Source Han Serif: SIL Open Font License 1.1
-- Source Han Sans: SIL Open Font License 1.1
-
+Note: The fonts processed by this project are subject to their own licenses.
 Please refer to the original font repositories for their license terms.
