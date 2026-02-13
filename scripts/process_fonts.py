@@ -300,7 +300,7 @@ class FontProcessor:
                         print(f"\n下载 asset: {asset_filename}")
                         print(f"URL: {download_url}")
                         try:
-                            download_file(download_url, str(downloaded_path))
+                            download_file(download_url, str(downloaded_path), asset_filename)
                         except Exception as e:
                             print(f"下载失败: {e}")
                             continue

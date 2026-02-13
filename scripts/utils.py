@@ -66,13 +66,14 @@ def get_latest_release(repo: str, github_token: str = None) -> dict:
     return response.json()
 
 
-def download_file(url: str, output_path: str, chunk_size: int = 8192):
+def download_file(url: str, output_path: str, filename: str = None, chunk_size: int = 8192):
     """
     下载文件
 
     Args:
         url: 文件 URL
         output_path: 输出路径
+        filename: 文件名（可选，用于显示进度）
         chunk_size: 下载块大小
     """
     response = requests.get(url, stream=True)
@@ -88,7 +89,7 @@ def download_file(url: str, output_path: str, chunk_size: int = 8192):
                 downloaded += len(chunk)
                 if total_size > 0:
                     progress = (downloaded / total_size) * 100
-                    print(f"\r下载进度: {progress:.1f}%", end='')
+                    print(f"\r{filename} 下载进度: {progress:.1f}%", end='')
 
     print()  # 换行
 
