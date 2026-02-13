@@ -1,9 +1,11 @@
 name: Process Fonts
 
 on:
-  repository_dispatch:
-    types: [process-fonts]
-  workflow_dispatch:  # 允许手动触发
+  workflow_dispatch:  # 允许手动触发和被其他工作流触发
+  workflow_run:
+    workflows: ["Check Font Updates"]
+    types:
+      - completed
 
 jobs:
   process-fonts:
