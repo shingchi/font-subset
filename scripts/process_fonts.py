@@ -57,6 +57,15 @@ class FontProcessor:
         with open(path, 'r', encoding='utf-8') as f:
             return json.load(f)
 
+    @staticmethod
+    def _get_package_name() -> str:
+        """从 package.json 读取包名，作为 CDN 地址的回退值"""
+        pkg_path = Path(__file__).parent.parent / "package.json"
+        if pkg_path.exists():
+            with open(pkg_path, "r", encoding="utf-8") as f:
+                return json.load(f).get("name", "font-subset")
+        return "font-subset"
+
     def get_font_glyphs(self, font_path: str) -> set:
         """
         获取字体中所有的字形对应的 Unicode 码点
@@ -203,12 +212,16 @@ class FontProcessor:
                 print(f"    ✗ 错误: {e}")
 
         # 生成 CSS 文件
+        # 优先使用环境变量中的 npm 包名，回退到 package.json 中的 name
+        npm_package_name = os.environ.get('NPM_PACKAGE_NAME') or self._get_package_name()
+        cdn_base_url = f"https://cdn.jsdelivr.net/npm/{npm_package_name}@latest/fonts"
+
         css_content, css_min_content = generate_css(
             font_name=font_name,
             variant=variant,
             weight=weight,
             subsets=stats['subsets'],
-            cdn_base_url=f"https://cdn.jsdelivr.net/gh/{{REPO_NAME}}@latest/fonts"
+            cdn_base_url=cdn_base_url
         )
 
         css_path = font_output_dir / f"{font_name}-{variant}.css"

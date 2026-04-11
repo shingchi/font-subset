@@ -8,20 +8,17 @@ on:
 jobs:
   process-fonts:
     runs-on: ubuntu-latest
-    # 在job级别添加权限，允许写入内容（推送代码）
+    # 只需要读取权限，不再需要写入（不 push 代码）
     permissions:
       contents: write
+      id-token: write
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          # 添加token配置 ⭐
-          token: ${{ secrets.GITHUB_TOKEN }}
+        uses: actions/checkout@v6
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.11'
           cache: 'pip'
@@ -58,6 +55,7 @@ jobs:
       - name: Process fonts
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_PACKAGE_NAME: ${{ vars.NPM_PACKAGE_NAME }}
         run: |
           python scripts/process_fonts.py \
             --config config/fonts.json \
@@ -72,26 +70,52 @@ jobs:
             --fonts-dir fonts \
             --output fonts/index.json
 
-      - name: Commit processed fonts
+      - name: Commit fonts versions
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
-          # 1. 备份原 .gitignore
-          cp .gitignore .gitignore.backup
-          # 2. 从 .gitignore 中移除 fonts/ 忽略规则
-          sed -i '/^fonts\//d' .gitignore
-
-          git add fonts/
           git add data/versions.json
 
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "chore: update processed fonts [skip ci]"
-
-            # 3. 恢复原 .gitignore
-            mv .gitignore.backup .gitignore
+            git commit -m "chore: update fonts versions [skip ci]"
 
             git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
           fi
+
+      # ── npm 发布 ──────────────────────────────────────────────
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Determine npm version
+        id: npm_version
+        run: |
+          PACKAGE_NAME=$(node -p "require('./package.json').name")
+
+          # 获取当前 npm 上已发布的版本，若未发布则从 0.0.0 开始
+          CURRENT=$(npm view "$PACKAGE_NAME" version 2>/dev/null || echo "0.0.0")
+          echo "Current npm version: $CURRENT"
+
+          MAJOR=$(echo "$CURRENT" | cut -d. -f1)
+          MINOR=$(echo "$CURRENT" | cut -d. -f2)
+          PATCH=$(echo "$CURRENT" | cut -d. -f3)
+          NEW_PATCH=$((PATCH + 1))
+          NEW_VERSION="${MAJOR}.${MINOR}.${NEW_PATCH}"
+
+          echo "New version: $NEW_VERSION"
+          echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Update package.json version
+        run: |
+          npm version ${{ steps.npm_version.outputs.version }} --no-git-tag-version
+
+      - name: Publish to npm
+        # run: npm publish --access public
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

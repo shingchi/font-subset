@@ -1,0 +1,19 @@
+{
+  "name": "@shingchil/webfont",
+  "version": "0.0.0",
+  "description": "中文字体 webfont 子集",
+  "files": [
+    "fonts/"
+  ],
+  "keywords": ["中文字体", "子集", "font", "subset", "webfont"],
+  "author": "shingchi",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shingchi/font-subset.git"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

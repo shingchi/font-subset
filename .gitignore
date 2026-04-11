@@ -41,12 +41,3 @@ Thumbs.db
 *.tmp
 temp/
 tmp/
-
-# Data files (except versions.json which should be tracked)
-data/updates.json
-
-# Downloaded fonts (original files)
-downloads/
-
-# Subsetted fonts
-fonts/
