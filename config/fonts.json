@@ -50,7 +50,6 @@
       "name": "Chillkai",
       "repo": "Warren2060/Chillkai",
       "description": "寒蝉正楷体",
-      "pre_release": true,
       "files": [
         {
           "asset_pattern": "ChillKai.*\\.zip",
