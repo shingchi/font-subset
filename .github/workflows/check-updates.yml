@@ -52,7 +52,7 @@ jobs:
 
       - name: Trigger font processing
         if: steps.check.outputs.has_updates == 'true'
-        uses: peter-evans/repository-dispatch@v4
+        uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           event-type: process-fonts
