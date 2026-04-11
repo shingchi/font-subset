@@ -40,9 +40,9 @@ def parse_unicode_range(range_str: str) -> List[Tuple[int, int]]:
     return ranges
 
 
-def get_latest_release(repo: str, github_token: str = None) -> dict:
+def get_latest_release(repo: str, github_token: str = None, prerelease: bool = False) -> dict:
     """
-    获取 GitHub 仓库的最新 release 信息
+    获取 GitHub 仓库的最新 release 或预发布 release 信息
 
     Args:
         repo: 仓库名称，格式为 "owner/repo"
@@ -51,7 +51,10 @@ def get_latest_release(repo: str, github_token: str = None) -> dict:
     Returns:
         release 信息字典，包含 tag_name, assets 等
     """
-    url = f"https://api.github.com/repos/{repo}/releases/latest"
+    if prerelease:
+        url = f"https://api.github.com/repos/{repo}/releases"
+    else:
+        url = f"https://api.github.com/repos/{repo}/releases/latest"
 
     headers = {
         "Accept": "application/vnd.github.v3+json"
@@ -63,7 +66,36 @@ def get_latest_release(repo: str, github_token: str = None) -> dict:
     response = requests.get(url, headers=headers)
     response.raise_for_status()
 
+    if prerelease:
+        return response.json()[0]
+
     return response.json()
+
+
+def get_pre_release(repo: str, github_token: str = None) -> dict:
+    """
+    获取 GitHub 仓库的预发布 release 信息
+
+    Args:
+        repo: 仓库名称，格式为 "owner/repo"
+        github_token: GitHub token（可选，用于提高 API 限制）
+
+    Returns:
+        release 信息字典，包含 tag_name, assets 等
+    """
+    url = f"https://api.github.com/repos/{repo}/releases"
+
+    headers = {
+        "Accept": "application/vnd.github.v3+json"
+    }
+
+    if github_token:
+        headers["Authorization"] = f"token {github_token}"
+
+    response = requests.get(url, headers=headers)
+    response.raise_for_status()
+
+    return response.json()[0]
 
 
 def download_file(url: str, output_path: str, chunk_size: int = 8192):

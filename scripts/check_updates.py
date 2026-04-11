@@ -54,11 +54,13 @@ def check_updates(config_path: str, versions_file: str, github_token: str = None
     for font in config['fonts']:
         font_name = font['name']
         repo = font['repo']
+        # 是否预发布版本
+        prerelease = font.get('pre_release', False)
 
-        print(f"检查 {font_name} ({repo})...")
+        print(f"检查 {font_name} ({repo}) {'预发布版本' if prerelease else ''}...")
 
         try:
-            release = get_latest_release(repo, github_token)
+            release = get_latest_release(repo, github_token, prerelease)
             latest_version = release['tag_name']
 
             current_version = current_versions.get(font_name, {}).get('version')

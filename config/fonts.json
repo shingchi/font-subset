@@ -31,6 +31,34 @@
           "weight": 700
         }
       ]
+    },
+    {
+      "name": "ZhuqueFangsong",
+      "repo": "TrionesType/zhuque",
+      "description": "朱雀仿宋",
+      "pre_release": true,
+      "files": [
+        {
+          "asset_pattern": "ZhuqueFangsong.*\\.zip",
+          "font_pattern": "ZhuqueFangsong-Regular.ttf",
+          "variant": "Regular",
+          "weight": 400
+        }
+      ]
+    },
+    {
+      "name": "Chillkai",
+      "repo": "Warren2060/Chillkai",
+      "description": "寒蝉正楷体",
+      "pre_release": true,
+      "files": [
+        {
+          "asset_pattern": "ChillKai.*\\.zip",
+          "font_pattern": "ChillKai.ttf",
+          "variant": "Regular",
+          "weight": 400
+        }
+      ]
     }
   ]
 }
