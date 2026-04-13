@@ -1,6 +1,6 @@
 {
   "name": "@shingchil/webfont",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "中文字体 webfont 子集",
   "files": [
     "SourceHanSerif",
