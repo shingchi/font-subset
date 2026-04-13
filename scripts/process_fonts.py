@@ -454,13 +454,14 @@ def main():
             versions = json.load(f)
 
     for update in updates:
-        versions[update['name']] = {
-            'version': update['version'],
-            'updated_at': update.get('published_at', '')
-        }
+        versions[update['name']] = update['version']
 
     os.makedirs(os.path.dirname(args.versions), exist_ok=True)
+    # 保存版本信息到指定文件
     with open(args.versions, 'w', encoding='utf-8') as f:
+        json.dump(versions, f, indent=2, ensure_ascii=False)
+    # 保存版本信息到输出目录
+    with open(args.output + '/versions.json', 'w', encoding='utf-8') as f:
         json.dump(versions, f, indent=2, ensure_ascii=False)
 
     print(f"\n{'='*60}")

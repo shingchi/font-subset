@@ -63,10 +63,10 @@ def check_updates(config_path: str, versions_file: str, github_token: str = None
             release = get_latest_release(repo, github_token, prerelease)
             latest_version = release['tag_name']
 
-            current_version = current_versions.get(font_name, {}).get('version')
+            current_version = current_versions.get(font_name, '')
 
             if current_version != latest_version:
-                print(f"  发现新版本: {current_version or '无'} -> {latest_version}")
+                print(f"发现新版本: {current_version or '无'} -> {latest_version}")
                 updates.append({
                     'name': font_name,
                     'repo': repo,
@@ -75,10 +75,10 @@ def check_updates(config_path: str, versions_file: str, github_token: str = None
                     'assets': release['assets']
                 })
             else:
-                print(f"  当前版本已是最新: {latest_version}")
+                print(f"当前版本已是最新: {latest_version}")
 
         except Exception as e:
-            print(f"  错误: {e}")
+            print(f"错误: {e}")
             continue
 
     return updates

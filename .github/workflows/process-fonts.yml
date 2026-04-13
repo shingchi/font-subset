@@ -64,26 +64,11 @@ jobs:
             --output fonts \
             --versions data/versions.json
 
-      - name: Generate font list
-        run: |
-          python scripts/generate_font_list.py \
-            --fonts-dir fonts \
-            --output fonts/index.json
-
-      - name: Commit fonts versions
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-
-          git add data/versions.json
-
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "chore: update fonts versions [skip ci]"
-
-            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
-          fi
+      # - name: Generate font list
+      #   run: |
+      #     python scripts/generate_font_list.py \
+      #       --fonts-dir fonts \
+      #       --output fonts/index.json
 
       # ── npm 发布 ──────────────────────────────────────────────
       - name: Set up Node.js
@@ -114,6 +99,47 @@ jobs:
         run: |
           npm version ${{ steps.npm_version.outputs.version }} --no-git-tag-version
 
+      # 更新 package.json 中的 files 字段
+      # 该字段用于指定 npm 发布时包含的文件
+      - name: Update package.json files field
+        run: |
+          SUBDIRS=$(find fonts -maxdepth 1 -type d ! -path fonts ! -name ".*" -printf '"%P",\n' | sed '$ s/,$//')
+          if [ -n "$SUBDIRS" ]; then
+            JSON_ARRAY="[${SUBDIRS}, \"versions.json\"]"
+          else
+            JSON_ARRAY="[\"versions.json\"]"
+          fi
+          jq --argjson files "$JSON_ARRAY" '.files = $files' package.json > tmp.json && mv tmp.json package.json
+          jq .files package.json
+
+      # 复制 package.json 到 fonts 目录
+      # npm 只发布 fonts 目录下的内容
+      - name: Copy package.json to fonts directory
+        run: |
+          cp package.json fonts/package.json
+          
+      # 提交版本信息和 package.json 到 GitHub 仓库
+      - name: Commit fonts versions
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+          git add data/versions.json package.json
+
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: update fonts versions [skip ci]"
+
+            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
+          fi
+
       - name: Publish to npm
-        # run: npm publish --access public
-        run: npm publish --provenance --access public
+        # run: |
+        #   cd fonts
+        #   npm publish --provenance --access public
+        run: |
+          cd fonts
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
