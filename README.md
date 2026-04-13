@@ -18,7 +18,7 @@
 
 ## 工作流程
 
-1. **自动检测更新**：每天检查字体仓库是否有新的 releases（使用轻量级依赖）
+1. **自动检测更新**：每周检查字体仓库是否有新的 releases（使用轻量级依赖）
 2. **下载字体文件**：从 releases 下载原始字体文件
 3. **子集化处理**：
    - 按照配置的 unicode-range 切片
@@ -78,7 +78,29 @@ font-subset/
 
 定义字体切片的 unicode 范围（基于 Google Noto Serif SC）。
 
+## 字体使用
+
+HTML 中引入对应字体包即可
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shingchil/webfont@latest/[font-name].css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shingchil/webfont@latest/[font-name].min.css">
+<style>
+  .wenkai {
+    font-family: 'LxgwWenKaiGB';
+  }
+  .source-han-serif {
+    font-family: 'SourceHanSerif';
+  }
+  .zhuque-fangsong {
+    font-family: 'ZhuqueFangsong';
+  }
+  .chillkai {
+    font-family: 'Chillkai';
+  }
+</style>
+```
+
 ## 许可证
 
 本仓库采用 [MIT License](LICENSE) 许可协议。所使用到的字体的许可证请参考字体仓库的 LICENSE 文件。
-```

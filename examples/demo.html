@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>字体子集化 CDN 使用示例</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/shingchi/font-subset@master/fonts/LxgwWenkaiGB/LxgwWenkaiGB-Regular.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/shingchi/font-subset@master/fonts/SourceHanSerif/SourceHanSerif-Regular.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shingchil/webfont@latest/LxgwWenkaiGB/LxgwWenkaiGB-Regular.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shingchil/webfont@latest/SourceHanSerif/SourceHanSerif-Regular.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shingchil/webfont@latest/ZhuqueFangsong/ZhuqueFangsong-Regular.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shingchil/webfont@latest/Chillkai/Chillkai-Regular.min.css">
 
     <style>
         /* 样式 */
@@ -34,26 +36,6 @@
         h2 {
             color: #555;
             margin-top: 30px;
-        }
-
-        .font-demo {
-            margin: 20px 0;
-            padding: 20px;
-            background: #f9f9f9;
-            border-left: 4px solid #4CAF50;
-            border-radius: 4px;
-        }
-
-        .wenkai-demo {
-            font-family: 'LxgwWenKaiGB', serif;
-            font-size: 18px;
-            line-height: 1.8;
-        }
-
-        .serif-demo {
-            font-family: 'SourceHanSerif', serif;
-            font-size: 18px;
-            line-height: 1.8;
         }
 
         code {
@@ -86,15 +68,45 @@
             margin: 20px 0;
             border-radius: 4px;
         }
+
+        .font-demo {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-left: 4px solid #4CAF50;
+            border-radius: 4px;
+            font-size: 20px;
+        }
+
+        .font-demo p {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .wenkai-demo {
+            font-family: 'LxgwWenKaiGB', serif;
+            line-height: 1.8;
+        }
+
+        .serif-demo {
+            font-family: 'SourceHanSerif', serif;
+            line-height: 1.8;
+        }
+
+        .zhuque-demo {
+            font-family: 'ZhuqueFangsong', serif;
+            line-height: 1.8;
+        }
+        
+        .chillkai-demo {
+            font-family: 'Chillkai', serif;
+            line-height: 1.8;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🎨 字体子集化 CDN 使用示例</h1>
-
-        <div class="info-box">
-            <strong>📌 重要提示：</strong> 请将示例中的 <code>YOUR_USERNAME/font-subsetter-cdn</code> 替换为你的 GitHub 用户名和仓库名。
-        </div>
 
         <h2>示例 1: 霞鹜文楷 GB</h2>
         <div class="font-demo wenkai-demo">
@@ -108,75 +120,45 @@
         <div class="font-demo serif-demo">
             <p>这是思源宋体的示例文本。</p>
             <p>The quick brown fox jumps over the lazy dog.</p>
-            <p>寒雨连江夜入吴，平明送客楚山孤。洛阳亲友如相问，一片冰心在玉壶。</p>
+            <p>天地玄黄，宇宙洪荒。日月盈昃，辰宿列张。</p>
+            <p>春眠不觉晓，处处闻啼鸟。夜来风雨声，花落知多少。</p>
+        </div>
+
+        <h2>示例 3: 朱雀仿宋</h2>
+        <div class="font-demo zhuque-demo">
+            <p>这是朱雀仿宋的示例文本。</p>
+            <p>The quick brown fox jumps over the lazy dog.</p>
+            <p>天地玄黄，宇宙洪荒。日月盈昃，辰宿列张。</p>
+            <p>春眠不觉晓，处处闻啼鸟。夜来风雨声，花落知多少。</p>
+        </div>
+
+        <h2>示例 4: 寒蝉正楷</h2>
+        <div class="font-demo chillkai-demo">
+            <p>这是寒蝉正楷的示例文本。</p>
+            <p>The quick brown fox jumps over the lazy dog.</p>
+            <p>天地玄黄，宇宙洪荒。日月盈昃，辰宿列张。</p>
+            <p>春眠不觉晓，处处闻啼鸟。夜来风雨声，花落知多少。</p>
         </div>
 
         <h2>📖 使用方法</h2>
 
-        <h3>方法 1: 直接引用 CSS 文件</h3>
+        <p>直接引用 CSS 文件</p>
         <pre><code>&lt;!-- 在 HTML head 中引用 --&gt;
 &lt;link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/font-subsetter-cdn@latest/fonts/LxgwWenkaiGB/LxgwWenkaiGB-Regular.css"&gt;
+      href="https://cdn.jsdelivr.net/npm/@shingchil/webfont@latest/LxgwWenkaiGB-Regular.min.css"&gt;
 
 &lt;style&gt;
 body {
-    font-family: 'LxgwWenKai', serif;
+    font-family: 'LxgwWenkaiGB', serif;
 }
 &lt;/style&gt;</code></pre>
-
-        <h3>方法 2: 手动引用单个切片</h3>
-        <pre><code>&lt;style&gt;
-/* 基础拉丁字符 */
-@font-face {
-    font-family: 'LxgwWenKai';
-    font-weight: 400;
-    font-display: swap;
-    src: url('https://cdn.jsdelivr.net/gh/YOUR_USERNAME/font-subsetter-cdn@latest/fonts/LxgwWenkaiGB/LxgwWenkaiGB-Regular-0.woff2') format('woff2');
-    unicode-range: U+0-FF;
-}
-
-/* CJK 标点符号 */
-@font-face {
-    font-family: 'LxgwWenKai';
-    font-weight: 400;
-    font-display: swap;
-    src: url('https://cdn.jsdelivr.net/gh/YOUR_USERNAME/font-subsetter-cdn@latest/fonts/LxgwWenkaiGB/LxgwWenkaiGB-Regular-22.woff2') format('woff2');
-    unicode-range: U+3000-303F;
-}
-
-/* 常用汉字 */
-@font-face {
-    font-family: 'LxgwWenKai';
-    font-weight: 400;
-    font-display: swap;
-    src: url('https://cdn.jsdelivr.net/gh/YOUR_USERNAME/font-subsetter-cdn@latest/fonts/LxgwWenkaiGB/LxgwWenkaiGB-Regular-30.woff2') format('woff2');
-    unicode-range: U+4E00-4FFF;
-}
-&lt;/style&gt;</code></pre>
-
-        <h3>方法 3: 指定版本</h3>
-        <pre><code>/* 使用特定版本 */
-src: url('https://cdn.jsdelivr.net/gh/YOUR_USERNAME/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="492f26273d643a3c2b3a2c3d3d2c3b642a2d27092f26273d3a643f7867796779">[email&#160;protected]</a>/fonts/...');
-
-/* 使用最新版本 */
-src: url('https://cdn.jsdelivr.net/gh/YOUR_USERNAME/font-subsetter-cdn@latest/fonts/...');</code></pre>
-
-        <h2>⚡ 性能优化建议</h2>
-        <div class="info-box">
-            <ul>
-                <li><strong>按需加载：</strong>只引用你需要的字体切片</li>
-                <li><strong>使用 font-display: swap：</strong>避免文本闪烁</li>
-                <li><strong>预连接：</strong>使用 <code>&lt;link rel="preconnect"&gt;</code> 提前建立连接</li>
-                <li><strong>本地回退：</strong>设置合适的 fallback 字体</li>
-            </ul>
-        </div>
 
         <h2>🎯 支持的字体</h2>
         <ul>
-            <li><strong>LxgwWenkaiGB</strong> - 霞鹜文楷 GB (Regular, Light, Bold)</li>
-            <li><strong>LxgwNeoZhiSong</strong> - 霞鹜新致宋 (Regular)</li>
-            <li><strong>SourceHanSerif</strong> - 思源宋体 (Regular, Light, Bold)</li>
-            <li><strong>SourceHanSans</strong> - 思源黑体 (Regular, Light, Bold)</li>
+            <li><strong>LxgwWenkaiGB</strong> - 霞鹜文楷 GB (Regular)</li>
+            <li><strong>SourceHanSerif</strong> - 思源宋体 (Regular, Bold)</li>
+            <li><strong>ZhuqueFangsong</strong> - 朱雀仿宋 (Regular)</li>
+            <li><strong>Chillkai</strong> - 寒蝉正楷 (Regular)</li>
         </ul>
 
         <div class="warning-box">
@@ -184,4 +166,4 @@ src: url('https://cdn.jsdelivr.net/gh/YOUR_USERNAME/font-subsetter-cdn@latest/fo
         </div>
 
         <h2>📚 更多信息</h2>
-        <p>访问 <a href="https://github.com/YO
+        <p>访问 <a href="https://github.com/shingchi/font-subset">字体子集化</a> 获取更多信息。</p>
