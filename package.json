@@ -1,6 +1,6 @@
 {
   "name": "@shingchil/webfont",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "中文字体 webfont 子集",
   "files": [
     "SourceHanSerif",
@@ -24,7 +24,7 @@
   "license": "MIT",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
-		"access": "public",
-		"provenance": true
+    "access": "public",
+    "provenance": true
   }
 }
