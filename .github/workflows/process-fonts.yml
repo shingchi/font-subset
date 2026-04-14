@@ -72,10 +72,10 @@ jobs:
 
       # ── npm 发布 ──────────────────────────────────────────────
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: '24'
+          # registry-url: 'https://registry.npmjs.org/'
 
       - name: Determine npm version
         id: npm_version
@@ -135,11 +135,11 @@ jobs:
           fi
 
       - name: Publish to npm
-        # run: |
-        #   cd fonts
-        #   npm publish --provenance --access public
         run: |
           cd fonts
-          npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          npm publish --provenance --access public
+        # run: |
+        #   cd fonts
+        #   npm publish --access public
+        # env:
+        #   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
